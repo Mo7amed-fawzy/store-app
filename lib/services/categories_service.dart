@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:store_app/helper/api.dart';
 import 'package:store_app/models/product_model.dart';
 
 class CategoriesService {
@@ -8,22 +6,15 @@ class CategoriesService {
       {required String categoryName}) async {
     // دا مينفعش علشان دا مثال :category_name فهبعت هنا المهتم اني اجيبو
     String baseUrl = 'https://fakestoreapi.com/products/category';
-    http.Response response =
-        await http.get(Uri.parse('$baseUrl/$categoryName'));
+    List<dynamic> data = await Api().get(url: '$baseUrl/$categoryName');
 
-    if ((response.statusCode == 200)) {
-      List<dynamic> data = jsonDecode(response.body);
-      List<ProductModel> productsList = [];
-      for (int i = 0; i < data.length; i++) {
-        productsList.add(
-          ProductModel.fromJson(data[i]),
-        );
-      }
-
-      return productsList;
-    } else {
-      throw Exception(
-          'there is problem with status code ${response.statusCode}');
+    List<ProductModel> productsList = [];
+    for (int i = 0; i < data.length; i++) {
+      productsList.add(
+        ProductModel.fromJson(data[i]),
+      );
     }
+
+    return productsList;
   }
 }
