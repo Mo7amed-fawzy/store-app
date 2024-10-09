@@ -10,16 +10,22 @@ class GetAllProductService {
     // عملت الريكويست بتاعي خدت الريسبونس
     http.Response response = await http.get(Uri.parse('$baseUrl/products'));
 
-    Map<String, dynamic> data = jsonDecode(response.body);
+    // بتشك من اول الديكود لحد الريتيرن
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      // List<dynamic> orMap<String, dynamic>
+      List<ProductModel> productsList = [];
+      for (int i = 0; i < data.length; i++) {
+        productsList.add(
+          ProductModel.fromJson(data[i]),
+          // كل مره بجيب الفاليو الجوا الليست واعملها ديكود يعني احولها للموديل بتاعي وبعد كدا اخزنه جوا ال productsList.add
+        );
+      }
 
-    List<ProductModel> productsList = [];
-    for (int i = 0; i < data.length; i++) {
-      productsList.add(
-        ProductModel.fromJson(data[i]),
-        // كل مره بجيب الفاليو الجوا الليست واعملها ديكود يعني احولها للموديل بتاعي وبعد كدا اخزنه جوا ال productsList.add
-      );
+      return productsList;
+    } else {
+      throw Exception(
+          'there is problem with status code ${response.statusCode}');
     }
-
-    return productsList;
   }
 }
