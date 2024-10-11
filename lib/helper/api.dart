@@ -1,24 +1,33 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  Future<dynamic> get({required String url}) async {
+  Future<dynamic> get({required String url, String? token}) async {
     // عملت الريكويست بتاعي خدت الريسبونس  Future<http.Response> كانت
-    http.Response response = await http.get(Uri.parse(url));
 
-    // بتشك من اول الديكود لحد الريتيرن
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception(
-          'there is problem with status code ${response.statusCode}');
+    Map<String, String> headers = {};
+
+    if (token != null) {
+      headers.addAll({
+        'Authrization': 'Bearar $token',
+      });
+
+      http.Response response = await http.get(Uri.parse(url), headers: headers);
+      // بتشك من اول الديكود لحد الريتيرن
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
+            'there is problem with status code ${response.statusCode}');
+      }
     }
   }
 
   Future<dynamic> post(
-      {required String url, @required dynamic body, String? token}) async {
+      {required String url,
+      required dynamic body, // الاحسن Map<String,dynamic>
+      String? token}) async {
     // @required يعني ممكن يتطلب وممكن لا
     Map<String, String> headers = {};
 
@@ -42,7 +51,34 @@ class Api {
       // هحدد نوع البيانات البستقبلها والببعتها
       headers: headers,
     );
-    if (response == 200) {
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+
+      return data;
+    } else {
+      throw Exception(
+          'there is problem with status code ${response.body} with body ${jsonDecode(response.body)}');
+    }
+  }
+
+  // الفرق بين بوست وبوت الوبست غالبا بتكون فورم داتا والتانيه غالبا بتكون الانكوديد
+
+  Future<dynamic> put(
+      {required String url, required dynamic body, String? token}) async {
+    Map<String, String> headers = {};
+
+    headers.addAll({'Content-Type': 'application/x-www-form-urlencoded'});
+    if (token != null) {
+      headers.addAll({
+        'Authrization': 'Bearar $token',
+      });
+    }
+    http.Response response = await http.put(
+      Uri.parse(url),
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
 
       return data;
