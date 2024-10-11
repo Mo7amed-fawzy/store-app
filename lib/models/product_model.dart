@@ -4,7 +4,7 @@ class ProductModel {
   final double price;
   final String description;
   final String image;
-  final RatingModel rating; // feets أو التعقيدات والمشكلات علشان اتفادا ال
+  final RatingModel rating; // feets أو التعقيدات والمشكلات. علشان اتفادا ال
 
   ProductModel(
       {required this.id,
