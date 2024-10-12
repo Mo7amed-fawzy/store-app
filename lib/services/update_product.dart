@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:store_app/helper/api.dart';
 import 'package:store_app/models/product_model.dart';
 
-class UpdateProduct {
+class UpdateProductService {
   Future<ProductModel> putProduct({
     // هحط هنا البيانات البودي واحطط الريكوايرد منها
     required String title,
@@ -13,7 +13,7 @@ class UpdateProduct {
     required String category,
   }) async {
     if (kDebugMode) {
-      print('product id  = $id');
+      print('product id  داااا= $id');
     }
 
     Map<String, dynamic> productdata = await Api().put(

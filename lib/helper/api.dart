@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -11,6 +12,7 @@ class Api {
     if (token != null) {
       headers.addAll({'Authorization': 'Bearer $token'});
     } // عملت التعديل هنا
+
     http.Response response = await http.get(Uri.parse(url), headers: headers);
 
     // بتشك من اول الديكود لحد الريتيرن
@@ -41,6 +43,10 @@ class Api {
         // جواها في حاجه اسمها توكن ودي بستعملها عشان اعبر ان عندي صلاحيه لاي حاجه علي فايرباز})
       });
     }
+    if (kDebugMode) {
+      print('url = $url body = $body token = $token ');
+    }
+
     http.Response response = await http.post(
       Uri.parse(url),
       // علشان البودي هي ماب فهعمل القوس دا
@@ -50,7 +56,9 @@ class Api {
     );
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
-
+      if (kDebugMode) {
+        print(data);
+      }
       return data;
     } else {
       throw Exception(
@@ -70,11 +78,20 @@ class Api {
         'Authrization': 'Bearar $token',
       });
     }
+
+    if (kDebugMode) {
+      print('url = $url body = $body token = $token ');
+    } // كدا اتعدل هنا بس مش فال ui
+
     http.Response response = await http.put(
       Uri.parse(url),
       body: body,
       headers: headers,
     );
+    if (kDebugMode) {
+      print('داا الريسسسبوننسسسسس: ${response.toString()}');
+    }
+
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
 

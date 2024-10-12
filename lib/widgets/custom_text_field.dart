@@ -7,17 +7,21 @@ class CustomTextField extends StatelessWidget {
       this.onChanged,
       this.obscureText = false,
       this.isEditable = true,
-      this.inputType});
+      this.inputType,
+      this.controller});
   final Function(String)? onChanged; // دي فنكشن اختيارية
   final String? hintText;
 
   final TextInputType? inputType;
   final bool? obscureText;
   final bool? isEditable;
+  final TextEditingController? controller; // هنا نحدد controller
+
   @override
   Widget build(BuildContext context) {
     return TextField(
-      keyboardType: inputType,
+      controller: controller, // علشان امسك التيكست من مكانلمكان
+      keyboardType: inputType, // بتاعت كتابة الارقام
       obscureText: obscureText!,
       // validator: (data) { // شلته علشان انا مش لازم اتاكد ان هو فاضي او لا علشان بعمل ابديت
       //   if (data!.isEmpty) {

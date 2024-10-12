@@ -10,7 +10,23 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, UpdateProductPage.id);
+        Navigator.pushNamed(context, UpdateProductPage.id, arguments: product);
+
+        // لو عايز اعدل عليها فالاب
+        //  onTap: () async {
+        // // الانتظار لحين العودة من صفحة التحديث
+        // ProductModel? updatedProduct = await Navigator.pushNamed(
+        //   context,
+        //   UpdateProductPage.id,
+        //   arguments: product,
+        // ) as ProductModel?;
+
+        // // إذا تم إرجاع منتج محدث، قم بتحديث الواجهة
+        // if (updatedProduct != null) {
+        //   setState(() {
+        //     product = updatedProduct; // تحديث المنتج المحدث
+        //   });
+        // }
       },
       child: Stack(
         clipBehavior: Clip.none, // دي البتخلي الصورة تطلع برا الستاك

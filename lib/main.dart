@@ -15,7 +15,7 @@ class StoreApp extends StatelessWidget {
       // بحط الروتس علشان احط الويدجيت من خلال الاسم
       routes: {
         HomePage.id: (context) => const HomePage(),
-        UpdateProductPage.id: (context) => UpdateProductPage(),
+        UpdateProductPage.id: (context) => const UpdateProductPage(),
       },
       initialRoute: HomePage.id,
     );
