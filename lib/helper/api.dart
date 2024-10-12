@@ -9,18 +9,15 @@ class Api {
     Map<String, String> headers = {};
 
     if (token != null) {
-      headers.addAll({
-        'Authrization': 'Bearar $token',
-      });
+      headers.addAll({'Authorization': 'Bearer $token'});
+    } // عملت التعديل هنا
+    http.Response response = await http.get(Uri.parse(url), headers: headers);
 
-      http.Response response = await http.get(Uri.parse(url), headers: headers);
-      // بتشك من اول الديكود لحد الريتيرن
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        throw Exception(
-            'there is problem with status code ${response.statusCode}');
-      }
+    // بتشك من اول الديكود لحد الريتيرن
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Error: ${response.statusCode}');
     }
   }
 

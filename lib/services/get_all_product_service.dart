@@ -21,3 +21,18 @@ class GetAllProductService {
     return productsList;
   }
 }
+// كود شغال لما تكون التوكن موجوده فقط
+// import 'dart:convert'; // تأكد من استيراد المكتبة لتحليل JSON
+// import 'package:http/http.dart' as http;
+
+// class GetAllProductService {
+//   Future<List<ProductModel>> getAllProducts() async {
+//     final response = await http.get(Uri.parse(
+//         'https://fakestoreapi.com/products')); // استبدل YOUR_API_URL بعنوان الـ API الخاص بك
+
+//     // تحليل JSON
+//     List<dynamic> productsList = json.decode(response.body);
+//     // تحويل كل عنصر إلى ProductModel
+//     return productsList.map((json) => ProductModel.fromJson(json)).toList();
+//   }
+// }

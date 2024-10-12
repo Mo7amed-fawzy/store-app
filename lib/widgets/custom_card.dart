@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:store_app/models/product_model.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({
-    super.key,
-  });
-
+  const CustomCard({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,18 +28,19 @@ class CustomCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'HandBag LV',
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  Text(
+                    product.title.substring(0, 6), // بقولو اعرضي اول 5 حروف
+                    style: const TextStyle(color: Colors.grey, fontSize: 16),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // الرو اخد المساحه المتاحه ليه فبتالي الاب بيسنتر حاجته فهعمل كروساكسسالايمنت
                     children: [
-                      const Text(
-                        '\$255',
+                      Text(
+                        '\$ ${product.price}',
+                        // '\$255',
                         // r'$255',
-                        style: TextStyle(fontSize: 13),
+                        style: const TextStyle(fontSize: 13),
                       ),
                       IconButton(
                           onPressed: () {},
@@ -58,7 +58,8 @@ class CustomCard extends StatelessWidget {
           top: -65,
           child: ClipOval(
             child: Image.network(
-              'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D',
+              product.image,
+              // 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D',
               height: 100,
               width: 100, // الارتفاع والعرض متساويين علشان شكل الدايره
               fit: BoxFit.cover, // علشان تبقي خلفية
